@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 4b - Question 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h2>Book Details (Open Inspect Console to View Output)</h2>
+    <div id="output"></div>
+
+    <script>
+        $(document).ready(function () {
+            // Retrieve and parse books.json using jQuery
+            $.getJSON("books.json", function (data) {
+                // (a) The title of the first book
+                let firstTitle = data.books[0].title;
+                console.log("(a) Title of the first book: " + firstTitle);
+
+                // (b) The author of the second book
+                let secondAuthor = data.books[1].author;
+                console.log("(b) Author of the second book: " + secondAuthor);
+
+                // (c) The genres of all books
+                console.log("(c) Genres of all books:");
+                let allGenres = [];
+                $.each(data.books, function (index, book) {
+                    console.log("- " + book.title + ": " + book.genres.join(", "));
+                    allGenres.push(book.genres.join(", "));
+                });
+
+                // Display dynamically on the webpage as well
+                $("#output").html(
+                    "<p><strong>(a) Title of the first book:</strong> " + firstTitle + "</p>" +
+                    "<p><strong>(b) Author of the second book:</strong> " + secondAuthor + "</p>" +
+                    "<p><strong>(c) Genres of all books:</strong> " + allGenres.join(" | ") + "</p>"
+                );
+            });
+        });
+    </script>
+</body>
+</html>
